@@ -47,3 +47,31 @@ error: Please commit or stash them.
 error: unable to unlink old 'sync-log_20251006.txt': Invalid argument
 fatal: Could not reset index file to revision 'HEAD'.
 Already up to date.
+🔼 ADD thay đổi...
+warning: in the working copy of 'sync-log_20251006.txt', LF will be replaced by CRLF the next time Git touches it
+💾 Kiểm tra thay đổi để commit...
+✅ Có thay đổi, thực hiện COMMIT và PUSH...
+[main 226a8c1] Auto sync at 06/10/2025 23:33:12,13
+ 1 file changed, 28 insertions(+)
+To https://github.com/lvt2005/nhom5.git
+   c28e1d1..226a8c1  main -> main
+
+[06/10/2025 23:33:12,13] ✅ Xong 1 chu kỳ, chờ 10s...
+------------------------------------------------------
+
+------------------------------------------------------
+[06/10/2025 23:33:25,12] 🔄 Bắt đầu đồng bộ...
+
+🔽 PULL từ GitHub...
+warning: in the working copy of 'sync-log_20251006.txt', LF will be replaced by CRLF the next time Git touches it
+📦 Stashing thay đổi cục bộ...
+warning: in the working copy of 'sync-log_20251006.txt', LF will be replaced by CRLF the next time Git touches it
+Saved working directory and index state WIP on main: 226a8c1 Auto sync at 06/10/2025 23:33:12,13
+error: unable to unlink old 'sync-log_20251006.txt': Invalid argument
+fatal: Could not reset index file to revision 'HEAD'.
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+⚠️ Lỗi khi PULL, thử reset và pull lại...
+error: unable to unlink old 'sync-log_20251006.txt': Invalid argument
+fatal: Could not reset index file to revision 'HEAD'.
+Already up to date.
