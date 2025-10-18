@@ -4,6 +4,13 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### environment
+application-dev.yml
+application-test.yml
+.env
+
+!src/main/resources/application-example.yml
+
 ### STS ###
 .apt_generated
 .classpath

@@ -1,0 +1,7 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: doctor-appointment
+  profiles:
+    active: @spring.profiles.active@
