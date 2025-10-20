@@ -6,15 +6,16 @@ import com.doctor_appointment.util.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.util.*;
 
-@Entity
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "tbl_user")
+@Entity(name = "User")
 public class UserEntity extends AbstractEntity<Long>{
   @Column(name = "full_name")
   private String fullname;
@@ -49,4 +50,13 @@ public class UserEntity extends AbstractEntity<Long>{
 
   @Column(name = "avatar_url")
   private String avatarUrl;
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private Set<UserHasRole> roles = new HashSet<>();
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private Set<UserHasGroup> groups = new HashSet<>();
+
+  @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private Doctor doctor;
 }

@@ -3,7 +3,6 @@ package com.doctor_appointment.dto.request;
 import com.doctor_appointment.util.Gender;
 import com.doctor_appointment.util.UserStatus;
 import com.doctor_appointment.util.UserType;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.io.Serializable;
