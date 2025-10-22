@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tất Cả Chuyên Khoa - Đặt Lịch Hẹn Bác sĩ - Bệnh viện Đa khoa Quốc tế Nam Sài Gòn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Grid styles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 0 12px;
+        }
+
+        .card {
+            background: #f8f8f8;
+            border: 1px solid #e3e3e3;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            height: 230px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
+        .ck-title {
+            font-weight: 800;
+            font-size: 1.15rem;
+            margin-bottom: 0;
+            text-align: left;
+            width: auto;
+            flex: 1;
+        }
+
+        .ck-desc {
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.3;
+            margin-bottom: 8px;
+            flex: 1;
+        }
+
+        .ck-link {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Styles for Xem chi tiết button (restyled) */
+        .detail-btn {
+            display: inline-block;
+            background: #f4c430;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(244, 196, 48, 0.3);
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .detail-btn:hover {
+            background: #e8b81a;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(232, 184, 26, 0.4);
+        }
+
+        /* Responsive for grid */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .icon {
+                margin-right: 0;
+                margin-bottom: 4px;
+            }
+        }
+
+        /* Additional spacing */
+        h1 {
+            padding: 60px 0 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .grid {
+            margin-bottom: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Danh Sách Tất Cả Chuyên Khoa - Chọn Để Đặt Lịch Hẹn Với Bác Sĩ</h1>
+    <div class="grid">
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Ngoai-than-kinh-cot-song.png" alt="Icon">
+                <div class="ck-title">Khoa Ngoại Thần kinh – Cột sống</div>
+            </div>
+            <div class="ck-desc">Khoa Ngoại Thần kinh - Cột sống là khoa mũi nhọn của bệnh viện, chuyên khám. Chọn bác sĩ và đặt lịch hẹn nhanh chóng qua hệ thống.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Chan-thuong-chinh-hinh.png" alt="Icon">
+                <div class="ck-title">Khoa Chấn thương chỉnh hình</div>
+            </div>
+            <div class="ck-desc">Khoa Chấn thương chỉnh hình cung cấp dịch vụ chuyên sâu. Tìm thời gian rảnh và xác nhận lịch khám.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Tai-mui-hong.png" alt="Icon">
+                <div class="ck-title">Khoa Tai – Mũi – Họng</div>
+            </div>
+            <div class="ck-desc">Khoa Tai Mũi Họng của Bệnh viện Đa khoa Quốc tế Nam Sài Gòn khám. Nhận thông báo nhắc lịch và quản lý lịch hẹn cá nhân.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Ngoai-tong-hop.png" alt="Icon">
+                <div class="ck-title">Khoa Ngoại tổng hợp</div>
+            </div>
+            <div class="ck-desc">Là một trong những chuyên khoa mũi nhọn của Bệnh viện, Khoa Ngoại tổng hợp. Tìm kiếm bác sĩ theo đánh giá và đặt lịch dễ dàng.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Kham-benh.png" alt="Icon">
+                <div class="ck-title">Khoa Khám bệnh</div>
+            </div>
+            <div class="ck-desc">Khoa Khám bệnh - Bệnh viện Đa khoa Quốc tế Nam Sài Gòn cung cấp. Đặt lịch khám ban đầu với bác sĩ phù hợp theo thời gian mong muốn.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Noi-tong-hop.png" alt="Icon">
+                <div class="ck-title">Khoa Nội tổng hợp</div>
+            </div>
+            <div class="ck-desc">Khoa Nội tổng hợp tiếp nhận điều trị nội trú tất cả các bệnh nội. Chọn chuyên gia và đặt lịch tư vấn trực tuyến hoặc ngoại trú.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Gay-me-Hoi-suc.png" alt="Icon">
+                <div class="ck-title">Khoa Gây mê – Hồi sức</div>
+            </div>
+            <div class="ck-desc">Gây mê - Hồi sức là một phần thiết yếu của y khoa hiện đại. Đặt lịch hỗ trợ phẫu thuật và theo dõi hậu phẫu qua hệ thống.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Xet-nghiem.png" alt="Icon">
+                <div class="ck-title">Khoa Xét nghiệm</div>
+            </div>
+            <div class="ck-desc">Khoa Xét nghiệm – Bệnh viện Đa khoa Quốc tế Nam Sài Gòn với đầy. Đặt lịch xét nghiệm kết hợp với khám chuyên khoa.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Chan-doan-hinh-anh.png" alt="Icon">
+                <div class="ck-title">Khoa Chẩn đoán hình ảnh</div>
+            </div>
+            <div class="ck-desc">Với tiêu chí “Tiếp cận nhanh - Chẩn đoán chính xác - Điều trị kịp thời”. Đặt lịch chụp chiếu và nhận kết quả nhanh chóng.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Vat-ly-tri-lieu-phuc-hoi-chuc-nang.png" alt="Icon">
+                <div class="ck-title">Khoa Vật lý trị liệu</div>
+            </div>
+            <div class="ck-desc">Khoa Vật lý trị liệu – Phục hồi chức năng cung cấp dịch vụ hồi. Đặt lịch buổi trị liệu và theo dõi tiến độ qua ứng dụng.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Hoi-suc-tich-cuc-cap-cuu.png" alt="Icon">
+                <div class="ck-title">Khoa Hồi sức tích cực</div>
+            </div>
+            <div class="ck-desc">Khoa Hồi sức tích cực - Cấp cứu có đội ngũ bác sĩ với trình. Đặt lịch cấp cứu ưu tiên hoặc theo dõi hậu cấp cứu.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img class="icon" src="../img/icon/Khoa-Duoc.png" alt="Icon">
+                <div class="ck-title">Khoa Dược</div>
+            </div>
+            <div class="ck-desc">Khoa Dược – Bệnh viện Đa khoa Quốc tế Nam Sài Gòn quản lý chặt. Đặt lịch tư vấn dược sĩ và nhận đơn thuốc điện tử.</div>
+            <div class="ck-link"><button class="learn-btn detail-btn">Tìm hiểu thêm</button></div>
+        </div>
+    </div>
+</body>
+
+</html>

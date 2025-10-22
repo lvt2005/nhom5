@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <title>Trang Cá Nhân Bác Sĩ</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background: #f0f5fd;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: #fff;
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 25px 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f5fd;
+        }
+
+        .sidebar-header i {
+            font-size: 32px;
+            color: #4a69bd;
+        }
+
+        .sidebar-header h2 {
+            color: #2c3e50;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            color: #5a6c7d;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #4a69bd;
+            color: #fff;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            color: #e74c3c;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 500;
+            margin-top: auto;
+        }
+
+        .logout-btn i {
+            font-size: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #ffe5e5;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-title i {
+            font-size: 28px;
+            color: #4a69bd;
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #4a69bd;
+            color: #fff;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: #3c5aa6;
+            transform: translateY(-2px);
+        }
+
+        .icon-btn i {
+            font-size: 20px;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .section-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f5fd;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .section-title i {
+            color: #4a69bd;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background: #4a69bd;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #3c5aa6;
+            transform: translateY(-2px);
+        }
+
+        /* Profile Info */
+        .profile-info {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .profile-avatar {
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            object-fit: cover;
+            background: #e0e0e0;
+        }
+
+        .edit-avatar {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 35px;
+            height: 35px;
+            background: #4a69bd;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-avatar:hover {
+            background: #3c5aa6;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .info-field label {
+            font-size: 13px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .info-field input,
+        .info-field select,
+        .info-field textarea {
+            padding: 12px;
+            border: 2px solid #e8eaf6;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #2c3e50;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .info-field input:focus,
+        .info-field select:focus,
+        .info-field textarea:focus {
+            border-color: #4a69bd;
+        }
+
+        /* Schedule Table */
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .schedule-table th {
+            text-align: left;
+            padding: 12px;
+            color: #7f8c8d;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .schedule-table td {
+            padding: 16px 12px;
+            background: #f8f9fa;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .schedule-table tr td:first-child {
+            border-radius: 12px 0 0 12px;
+        }
+
+        .schedule-table tr td:last-child {
+            border-radius: 0 12px 12px 0;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-check {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .btn-cancel {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .btn-check:hover {
+            background: #c3e6cb;
+        }
+
+        .btn-cancel:hover {
+            background: #f5c6cb;
+        }
+
+        /* Notification List */
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background: #e8eaf6;
+        }
+
+        .notification-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 20px;
+        }
+
+        .notif-schedule {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .notif-change {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .notif-system {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-content h4 {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .notification-content p {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #95a5a6;
+            white-space: nowrap;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 16px;
+            color: #fff;
+        }
+
+        .stat-card:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -260px;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <!-- <i class="ri-stethoscope-fill"></i>
+            <h2>Doctor Portal</h2> -->
+            <img src="../img/logomau.jpg" style=" width: 280px; height: 70px; border-radius: 50%; object-fit: cover; ">
+        </div>
+        
+        <nav class="nav-menu">
+            <div class="nav-item active">
+                <i class="ri-user-line"></i>
+                <span>Thông tin cá nhân</span>
+            </div>
+            <div class="nav-item">
+                <i class="ri-calendar-line"></i>
+                <span>Lịch làm việc</span>
+            </div>
+            <div class="nav-item">
+                <i class="ri-calendar-check-line"></i>
+                <span>Lịch hẹn</span>
+            </div>
+            <div class="nav-item">
+                <i class="ri-notification-3-line"></i>
+                <span>Thông báo</span>
+            </div>
+            <div class="nav-item">
+                <i class="ri-file-text-line"></i>
+                <span>Ghi chú khám bệnh</span>
+            </div>
+            <div class="nav-item">
+                <i class="ri-message-3-line"></i>
+                <span>Diễn đàn & Phản hồi</span>
+            </div>
+            <div class="nav-item">
+                <i class="ri-settings-3-line"></i>
+                <span>Cài đặt</span>
+            </div>
+        </nav>
+
+        <div class="logout-btn">
+            <i class="ri-logout-box-r-line"></i>
+            <span>Đăng xuất</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="page-title">
+                <i class="ri-user-3-fill"></i>
+                <h1>Thông Tin Cá Nhân</h1>
+            </div>
+            <div class="top-actions">
+                <div class="icon-btn">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="badge">5</span>
+                </div>
+                <div class="icon-btn">
+                    <i class="ri-message-3-line"></i>
+                    <span class="badge">12</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-grid">
+            <!-- Profile Information -->
+            <div class="section-card full-width">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="ri-user-settings-line"></i>
+                        Thông Tin Cá Nhân
+                    </div>
+                    <button class="btn-primary">
+                        <i class="ri-save-line"></i>
+                        Lưu thay đổi
+                    </button>
+                </div>
+
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <img src="../img/logocanhan.jpg" alt="Ảnh đại diện">
+                        <div class="edit-avatar">
+                            <i class="ri-camera-line"></i>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="info-row">
+                            <div class="info-field">
+                                <label>Họ và tên</label>
+                                <input type="text" value="TS.BS Nguyễn Văn A">
+                            </div>
+                            <div class="info-field">
+                                <label>Giới tính</label>
+                                <select>
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-field">
+                                <label>Ngày sinh</label>
+                                <input type="date" value="1985-03-15">
+                            </div>
+                            <div class="info-field">
+                                <label>Số điện thoại</label>
+                                <input type="tel" value="0901234567">
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-field">
+                                <label>Email</label>
+                                <input type="email" value="bsnguyenvana@email.com">
+                            </div>
+                            <div class="info-field">
+                                <label>Chuyên khoa</label>
+                                <select>
+                                    <option>Ngoại Thần kinh - Cột Sống</option>
+                                    <option>Tai - Mũi - Họng</option>
+                                    <option>Nội khoa</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-field">
+                                <label>Bằng cấp</label>
+                                <input type="text" value="Tiến sĩ, Bác sĩ Chuyên khoa II">
+                            </div>
+                            <div class="info-field">
+                                <label>Kinh nghiệm</label>
+                                <input type="text" value="30 năm">
+                            </div>
+                        </div>
+
+                        <div class="info-field">
+                            <label>Địa chỉ liên hệ</label>
+                            <input type="text" value="123 Đường ABC, Quận 1, TP.HCM">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Schedule -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="ri-calendar-check-line"></i>
+                        Lịch Hẹn Hôm Nay
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>8</h3>
+                        <p href="/frontend/layout/lichkhamcuabacsi.html" >Lịch hẹn hôm nay</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>3</h3>
+                        <p>Đang chờ xác nhận</p>
+                    </div>
+                </div>
+
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Giờ</th>
+                            <th>Bệnh nhân</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08:00</td>
+                            <td>Nguyễn Thị B</td>
+                            <td><span class="status-badge status-confirmed">Đã xác nhận</span></td>
+                        </tr>
+                        <tr>
+                            <td>09:30</td>
+                            <td>Trần Văn C</td>
+                            <td><span class="status-badge status-pending">Chờ xác nhận</span></td>
+                        </tr>
+                        <tr>
+                            <td>11:00</td>
+                            <td>Lê Thị D</td>
+                            <td><span class="status-badge status-confirmed">Đã xác nhận</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Notifications -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="ri-notification-3-line"></i>
+                        Thông Báo Mới
+                    </div>
+                </div>
+
+                <div class="notification-list">
+                    <div class="notification-item">
+                        <div class="notification-icon notif-schedule">
+                            <i class="ri-calendar-line"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4>Lịch khám mới</h4>
+                            <p>Bệnh nhân Nguyễn Văn E đặt lịch khám lúc 14:00</p>
+                        </div>
+                        <div class="notification-time">10 phút trước</div>
+                    </div>
+
+                    <div class="notification-item">
+                        <div class="notification-icon notif-change">
+                            <i class="ri-time-line"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4>Thay đổi lịch hẹn</h4>
+                            <p>Bệnh nhân Trần Thị F yêu cầu đổi lịch</p>
+                        </div>
+                        <div class="notification-time">1 giờ trước</div>
+                    </div>
+
+                    <div class="notification-item">
+                        <div class="notification-icon notif-system">
+                            <i class="ri-information-line"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4>Cập nhật hệ thống</h4>
+                            <p>Hệ thống sẽ bảo trì vào 23:00 tối nay</p>
+                        </div>
+                        <div class="notification-time">2 giờ trước</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointment Management -->
+            <div class="section-card full-width">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="ri-calendar-2-line"></i>
+                        Quản Lý Lịch Hẹn
+                    </div>
+                    <button class="btn-primary">
+                        <i class="ri-filter-line"></i>
+                        Bộ lọc
+                    </button>
+                </div>
+
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Ngày giờ</th>
+                            <th>Bệnh nhân</th>
+                            <th>Số điện thoại</th>
+                            <th>Triệu chứng</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>21/10/2025 - 08:00</td>
+                            <td>Nguyễn Thị B</td>
+                            <td>0912345678</td>
+                            <td>Đau đầu, chóng mặt</td>
+                            <td><span class="status-badge status-confirmed">Đã xác nhận</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <div class="btn-icon btn-check">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <div class="btn-icon btn-cancel">
+                                        <i class="ri-close-line"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21/10/2025 - 09:30</td>
+                            <td>Trần Văn C</td>
+                            <td>0923456789</td>
+                            <td>Khám định kỳ</td>
+                            <td><span class="status-badge status-pending">Chờ xác nhận</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <div class="btn-icon btn-check">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <div class="btn-icon btn-cancel">
+                                        <i class="ri-close-line"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>20/10/2025 - 15:00</td>
+                            <td>Lê Thị D</td>
+                            <td>0934567890</td>
+                            <td>Tái khám</td>
+                            <td><span class="status-badge status-completed">Hoàn thành</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <div class="btn-icon btn-check">
+                                        <i class="ri-file-text-line"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation handling
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Notification interaction
+        const notificationItems = document.querySelectorAll('.notification-item');
+        
+        notificationItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.opacity = '0.6';
+            });
+        });
+
+        // Action buttons
+        const actionBtns = document.querySelectorAll('.btn-icon');
+        
+        actionBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const row = btn.closest('tr');
+                if (btn.classList.contains('btn-check')) {
+                    alert('Xác nhận lịch hẹn thành công!');
+                } else if (btn.classList.contains('btn-cancel')) {
+                    if (confirm('Bạn có chắc muốn hủy lịch hẹn này?')) {
+                        row.style.opacity = '0.5';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

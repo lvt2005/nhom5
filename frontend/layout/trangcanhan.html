@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Cá Nhân - Hệ Thống Đặt Lịch Hẹn Bác Sĩ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            object-fit: cover;
+            border: 5px solid #3498db;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .info-value {
+            color: #666;
+        }
+
+        .edit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .edit-btn:hover {
+            background: #2980b9;
+        }
+
+        .nav-menu {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #333;
+        }
+
+        .nav-item:hover {
+            background: #f8f9ff;
+            color: #3498db;
+        }
+
+        .nav-item.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .nav-item i {
+            margin-right: 15px;
+            font-size: 18px;
+            width: 25px;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .appointment-card {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+
+        .appointment-card:hover {
+            transform: translateX(5px);
+        }
+
+        .appointment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .doctor-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .appointment-status {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .appointment-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            color: #666;
+        }
+
+        .detail-item i {
+            margin-right: 8px;
+            color: #667eea;
+        }
+
+        .appointment-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .medical-record {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .record-date {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        .record-content {
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .record-content h4 {
+            color: #333;
+            margin: 15px 0 10px;
+        }
+
+        .notification-item {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+        }
+
+        .notif-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .notif-reminder {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .notif-change {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .notif-content h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .notif-content p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .notif-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .payment-method-card {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .payment-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-icon {
+            width: 60px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .transaction-item {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .transaction-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .transaction-amount {
+            text-align: right;
+        }
+
+        .amount {
+            font-size: 20px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .transaction-status {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .review-card {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .review-form {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 10px;
+            font-size: 30px;
+        }
+
+        .star {
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #ffc107;
+        }
+
+        .forum-post {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                order: 2;
+            }
+
+            .content-area {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .appointment-details {
+                grid-template-columns: 1fr;
+            }
+
+            .appointment-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-user-circle"></i> Trang Cá Nhân</h1>
+            <p>Quản lý thông tin và lịch hẹn của bạn</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="profile-card">
+                    <img src="/frontend/img/logocanhan.jpg" alt="Profile" class="profile-img">
+                    <h3>Nguyễn Văn A</h3>
+                    <p style="color: #999; margin-bottom: 20px;">Bệnh nhân</p>
+                    
+                    <div class="profile-info">
+                        <div class="info-row">
+                            <span class="info-label">Họ Tên:</span>
+                            <span class="info-value">Nguyễn Văn A</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Giới tính:</span>
+                            <span class="info-value">Nam</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Ngày sinh:</span>
+                            <span class="info-value">01/01/1990</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Số điện thoại:</span>
+                            <span class="info-value">0123456789</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value">nguyenvana@email.com</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Địa chỉ:</span>
+                            <span class="info-value">TP. Hồ Chí Minh</span>
+                        </div>
+                    </div>
+                    
+                    <button class="edit-btn"><i class="fas fa-edit"></i> Chỉnh sửa thông tin</button>
+                </div>
+
+                <div class="nav-menu">
+                    <div class="nav-item active" onclick="showSection('appointments')">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Lịch hẹn</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('medical-history')">
+                        <i class="fas fa-file-medical"></i>
+                        <span>Lịch sử khám</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('notifications')">
+                        <i class="fas fa-bell"></i>
+                        <span>Thông báo</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('payment')">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Thanh toán</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('reviews')">
+                        <i class="fas fa-star"></i>
+                        <span>Đánh giá bác sĩ</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('forum')">
+                        <i class="fas fa-comments"></i>
+                        <span>Diễn đàn sức khỏe</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <!-- Lịch hẹn -->
+                <div id="appointments" class="content-section active">
+                    <h2 class="section-title">Lịch Hẹn Của Tôi</h2>
+                    
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="filterAppointments('all')">Tất cả</button>
+                        <button class="tab-btn" onclick="filterAppointments('upcoming')">Sắp tới</button>
+                        <button class="tab-btn" onclick="filterAppointments('confirmed')">Đã xác nhận</button>
+                        <button class="tab-btn" onclick="filterAppointments('completed')">Đã hoàn thành</button>
+                        <button class="tab-btn" onclick="filterAppointments('cancelled')">Đã hủy</button>
+                    </div>
+
+                    <div class="appointment-card">
+                        <div class="appointment-header">
+                            <div class="doctor-name">
+                                <i class="fas fa-user-md"></i> BS. Nguyễn Thị B
+                            </div>
+                            <span class="appointment-status status-confirmed">Đã xác nhận</span>
+                        </div>
+                        <div class="appointment-details">
+                            <div class="detail-item">
+                                <i class="fas fa-stethoscope"></i>
+                                <span>Chuyên khoa: Tim mạch</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>25/10/2025 - 14:00</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Phòng khám ABC, Q1, TP.HCM</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Phí khám: 200,000 VNĐ</span>
+                            </div>
+                        </div>
+                        <div class="appointment-actions">
+                            <button class="btn btn-primary"><i class="fas fa-info-circle"></i> Chi tiết</button>
+                            <button class="btn btn-danger"><i class="fas fa-times"></i> Hủy lịch</button>
+                        </div>
+                    </div>
+
+                    <div class="appointment-card">
+                        <div class="appointment-header">
+                            <div class="doctor-name">
+                                <i class="fas fa-user-md"></i> BS. Trần Văn C
+                            </div>
+                            <span class="appointment-status status-pending">Chờ xác nhận</span>
+                        </div>
+                        <div class="appointment-details">
+                            <div class="detail-item">
+                                <i class="fas fa-stethoscope"></i>
+                                <span>Chuyên khoa: Da liễu</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>28/10/2025 - 09:00</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Phòng khám XYZ, Q3, TP.HCM</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Phí khám: 150,000 VNĐ</span>
+                            </div>
+                        </div>
+                        <div class="appointment-actions">
+                            <button class="btn btn-primary"><i class="fas fa-info-circle"></i> Chi tiết</button>
+                            <button class="btn btn-danger"><i class="fas fa-times"></i> Hủy lịch</button>
+                        </div>
+                    </div>
+
+                    <div class="appointment-card">
+                        <div class="appointment-header">
+                            <div class="doctor-name">
+                                <i class="fas fa-user-md"></i> BS. Lê Thị D
+                            </div>
+                            <span class="appointment-status status-completed">Đã hoàn thành</span>
+                        </div>
+                        <div class="appointment-details">
+                            <div class="detail-item">
+                                <i class="fas fa-stethoscope"></i>
+                                <span>Chuyên khoa: Nội tổng quát</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>15/10/2025 - 10:00</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Phòng khám MNO, Q7, TP.HCM</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Đã khám xong</span>
+                            </div>
+                        </div>
+                        <div class="appointment-actions">
+                            <button class="btn btn-primary"><i class="fas fa-file-medical-alt"></i> Xem kết quả</button>
+                            <button class="btn btn-secondary"><i class="fas fa-star"></i> Đánh giá</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lịch sử khám -->
+                <div id="medical-history" class="content-section">
+                    <h2 class="section-title">Lịch Sử Khám Bệnh</h2>
+
+                    <div class="medical-record">
+                        <div class="record-header">
+                            <div class="record-date">
+                                <i class="fas fa-calendar"></i> 15/10/2025
+                            </div>
+                            <div>
+                                <strong>BS. Lê Thị D</strong> - Nội tổng quát
+                            </div>
+                        </div>
+                        <div class="record-content">
+                            <h4><i class="fas fa-notes-medical"></i> Triệu chứng:</h4>
+                            <p>Đau đầu, chóng mặt, mệt mỏi</p>
+                            
+                            <h4><i class="fas fa-diagnoses"></i> Chẩn đoán:</h4>
+                            <p>Thiếu máu nhẹ, huyết áp thấp</p>
+                            
+                            <h4><i class="fas fa-prescription"></i> Đơn thuốc:</h4>
+                            <ul style="margin-left: 20px;">
+                                <li>Viên bổ sung sắt - 1 viên/ngày sau ăn</li>
+                                <li>Vitamin C - 1 viên/ngày</li>
+                                <li>Tái khám sau 2 tuần</li>
+                            </ul>
+                            
+                            <h4><i class="fas fa-comment-medical"></i> Ghi chú của bác sĩ:</h4>
+                            <p>Bệnh nhân cần nghỉ ngơi đầy đủ, ăn uống đủ chất, tránh stress. Nên bổ sung thực phẩm giàu sắt như rau xanh, thịt đỏ.</p>
+                        </div>
+                    </div>
+
+                    <div class="medical-record">
+                        <div class="record-header">
+                            <div class="record-date">
+                                <i class="fas fa-calendar"></i> 01/09/2025
+                            </div>
+                            <div>
+                                <strong>BS. Nguyễn Văn E</strong> - Tai Mũi Họng
+                            </div>
+                        </div>
+                        <div class="record-content">
+                            <h4><i class="fas fa-notes-medical"></i> Triệu chứng:</h4>
+                            <p>Viêm họng, sốt nhẹ, ho khan</p>
+                            
+                            <h4><i class="fas fa-diagnoses"></i> Chẩn đoán:</h4>
+                            <p>Viêm họng cấp do virus</p>
+                            
+                            <h4><i class="fas fa-prescription"></i> Đơn thuốc:</h4>
+                            <ul style="margin-left: 20px;">
+                                <li>Thuốc giảm đau hạ sốt - 3 lần/ngày</li>
+                                <li>Viên ngậm họng - 4-6 viên/ngày</li>
+                                <li>Uống nhiều nước, nghỉ ngơi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông báo -->
+                <div id="notifications" class="content-section">
+                    <h2 class="section-title">Thông Báo</h2>
+
+                    <div class="notification-item">
+                        <div class="notif-icon notif-reminder">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="notif-content">
+                            <h4>Nhắc lịch hẹn</h4>
+                            <p>Bạn có lịch hẹn với BS. Nguyễn Thị B vào ngày 25/10/2025 lúc 14:00</p>
+                            <p>Địa điểm: Phòng khám ABC, Q1, TP.HCM</p>
+                            <span class="notif-time"><i class="fas fa-clock"></i> 24/10/2025 - 14:00</span>
+                        </div>
+                    </div>
+
+                    <div class="notification-item">
+                        <div class="notif-icon notif-change">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="notif-content">
+                            <h4>Xác nhận lịch hẹn</h4>
+                            <p>Lịch hẹn của bạn với BS. Nguyễn Thị B đã được xác nhận</p>
+                            <p>Thời gian: 25/10/2025 - 14:00</p>
+                            <span class="notif-time"><i class="fas fa-clock"></i> 23/10/2025 - 09:30</span>
+                        </div>
+                    </div>
+
+                    <div class="notification-item">
+                        <div class="notif-icon notif-reminder">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="notif-content">
+                            <h4>Hoàn thành khám bệnh</h4>
+                            <p>Buổi khám với BS. Lê Thị D đã hoàn thành. Vui lòng xem kết quả khám và đánh giá bác sĩ.</p>
+                            <span class="notif-time"><i class="fas fa-clock"></i> 15/10/2025 - 11:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thanh toán -->
+                <div id="payment" class="content-section">
+                    <h2 class="section-title">Quản Lý Thanh Toán</h2>
+
+                    <h3 style="margin-bottom: 20px; color: #667eea;"><i class="fas fa-wallet"></i> Phương thức thanh toán</h3>
+                    
+                    <div class="payment-method-card">
+                        <div class="payment-info">
+                            <div class="payment-icon">
+                                <i class="fab fa-cc-visa" style="color: #1434CB;"></i>
+                            </div>
+                            <div>
+                                <h4>Visa **** 4242</h4>
+                                <p style="color: #999; font-size: 14px;">Hết hạn: 12/2026</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-secondary"><i class="fas fa-edit"></i> Sửa</button>
+                            <button class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                        </div>
+                    </div>
+
+                    <div class="payment-method-card">
+                        <div class="payment-info">
+                            <div class="payment-icon">
+                                <i class="fas fa-money-bill-wave" style="color: #A50064;"></i>
+                            </div>
+                            <div>
+                                <h4>Ví MoMo</h4>
+                                <p style="color: #999; font-size: 14px;">0123456789</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-secondary"><i class="fas fa-edit"></i> Sửa</button>
+                            <button class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="margin-bottom: 30px;">
+                        <i class="fas fa-plus"></i> Thêm phương thức thanh toán
+                    </button>
+
+                    <h3 style="margin-bottom: 20px; color: #667eea;"><i class="fas fa-history"></i> Lịch sử giao dịch</h3>
+
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>Thanh toán lịch hẹn</h4>
+                            <p><i class="fas fa-user-md"></i> BS. Nguyễn Thị B - Tim mạch</p>
+                            <p><i class="fas fa-calendar"></i> 23/10/2025 - 15:30</p>
+                        </div>
+                        <div class="transaction-amount">
+                            <div class="amount">200,000 VNĐ</div>
+                            <span class="transaction-status status-success">Thành công</span>
+                        </div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>Thanh toán lịch hẹn</h4>
+                            <p><i class="fas fa-user-md"></i> BS. Lê Thị D - Nội tổng quát</p>
+                            <p><i class="fas fa-calendar"></i> 14/10/2025 - 09:15</p>
+                        </div>
+                        <div class="transaction-amount">
+                            <div class="amount">180,000 VNĐ</div>
+                            <span class="transaction-status status-success">Thành công</span>
+                        </div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>Hoàn tiền - Hủy lịch hẹn</h4>
+                            <p><i class="fas fa-user-md"></i> BS. Phạm Văn F - Răng Hàm Mặt</p>
+                            <p><i class="fas fa-calendar"></i> 10/10/2025 - 11:20</p>
+                        </div>
+                        <div class="transaction-amount">
+                            <div class="amount" style="color: #28a745;">+150,000 VNĐ</div>
+                            <span class="transaction-status status-success">Đã hoàn tiền</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đánh giá bác sĩ -->
+                <div id="reviews" class="content-section">
+                    <h2 class="section-title">Đánh Giá Bác Sĩ</h2>
+
+                    <div class="review-form">
+                        <h3 style="margin-bottom: 20px; color: #667eea;">Viết đánh giá mới</h3>
+                        <form>
+                            <div class="form-group">
+                                <label>Chọn bác sĩ</label>
+                                <select>
+                                    <option>BS. Lê Thị D - Nội tổng quát (15/10/2025)</option>
+                                    <option>BS. Nguyễn Văn E - Tai Mũi Họng (01/09/2025)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Đánh giá của bạn</label>
+                                <div class="star-rating">
+                                    <span class="star" onclick="rate(1)">★</span>
+                                    <span class="star" onclick="rate(2)">★</span>
+                                    <span class="star" onclick="rate(3)">★</span>
+                                    <span class="star" onclick="rate(4)">★</span>
+                                    <span class="star" onclick="rate(5)">★</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Nhận xét</label>
+                                <textarea placeholder="Chia sẻ trải nghiệm của bạn về bác sĩ..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Gửi đánh giá
+                            </button>
+                        </form>
+                    </div>
+
+                    <h3 style="margin: 30px 0 20px; color: #667eea;">Đánh giá của bạn</h3>
+
+                    <div class="review-card">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h4>BS. Nguyễn Văn E</h4>
+                                <p style="color: #999; font-size: 14px;">Tai Mũi Họng</p>
+                            </div>
+                            <span style="color: #999; font-size: 14px;">05/09/2025</span>
+                        </div>
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+                        <p style="line-height: 1.6; color: #666;">
+                            Bác sĩ rất nhiệt tình và chuyên nghiệp. Khám bệnh kỹ càng, giải thích rõ ràng về tình trạng bệnh và cách điều trị. Phòng khám sạch sẽ, nhân viên thân thiện. Sau khi điều trị theo đơn thuốc, tôi đã khỏi hoàn toàn. Rất hài lòng!
+                        </p>
+                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                            <button class="btn btn-secondary"><i class="fas fa-edit"></i> Sửa</button>
+                            <button class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h4>BS. Trần Thị G</h4>
+                                <p style="color: #999; font-size: 14px;">Nhi khoa</p>
+                            </div>
+                            <span style="color: #999; font-size: 14px;">20/08/2025</span>
+                        </div>
+                        <div class="stars">
+                            ★★★★☆
+                        </div>
+                        <p style="line-height: 1.6; color: #666;">
+                            Bác sĩ khám tốt, tuy nhiên thời gian chờ khá lâu. Nhân viên lễ tân cần cải thiện thái độ phục vụ. Kết quả điều trị tốt, con tôi đã khỏe hơn nhiều.
+                        </p>
+                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                            <button class="btn btn-secondary"><i class="fas fa-edit"></i> Sửa</button>
+                            <button class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diễn đàn sức khỏe -->
+                <div id="forum" class="content-section">
+                    <h2 class="section-title">Diễn Đàn Sức Khỏe</h2>
+
+                    <button class="btn btn-primary" style="margin-bottom: 20px;">
+                        <i class="fas fa-plus"></i> Đặt câu hỏi mới
+                    </button>
+
+                    <div class="tab-buttons">
+                        <button class="tab-btn active">Câu hỏi của tôi</button>
+                        <button class="tab-btn">Tất cả câu hỏi</button>
+                        <button class="tab-btn">Phổ biến</button>
+                    </div>
+
+                    <div class="forum-post">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="author-avatar">A</div>
+                                <div>
+                                    <strong>Bạn</strong>
+                                    <p style="color: #999; font-size: 12px; margin-top: 2px;">20/10/2025</p>
+                                </div>
+                            </div>
+                            <span class="appointment-status status-confirmed">Đã trả lời</span>
+                        </div>
+                        <h4 style="margin-bottom: 10px; color: #333;">Cách phòng ngừa bệnh tim mạch hiệu quả?</h4>
+                        <div class="post-content">
+                            <p>Xin chào bác sĩ, tôi muốn hỏi về các biện pháp phòng ngừa bệnh tim mạch trong cuộc sống hàng ngày. Gia đình tôi có tiền sử về bệnh tim nên tôi khá lo lắng. Bác sĩ có thể tư vấn giúp tôi được không ạ?</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 3px solid #667eea;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <div class="author-avatar" style="background: #28a745;">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div>
+                                    <strong style="color: #28a745;">BS. Nguyễn Thị B</strong>
+                                    <p style="color: #999; font-size: 12px; margin-top: 2px;">21/10/2025</p>
+                                </div>
+                            </div>
+                            <p style="color: #666; line-height: 1.6;">
+                                Chào bạn! Để phòng ngừa bệnh tim mạch, bạn nên: 1) Duy trì chế độ ăn lành mạnh, giảm muối và chất béo xấu, 2) Tập thể dục đều đặn ít nhất 30 phút/ngày, 3) Kiểm soát cân nặng, 4) Không hút thuốc lá, hạn chế rượu bia, 5) Quản lý stress, 6) Kiểm tra sức khỏe định kỳ. Do có tiền sử gia đình, bạn nên đi khám và làm xét nghiệm để theo dõi sớm nhé!
+                            </p>
+                        </div>
+                        <div class="post-stats">
+                            <span><i class="fas fa-comment"></i> 1 trả lời</span>
+                            <span><i class="fas fa-eye"></i> 45 lượt xem</span>
+                            <span><i class="fas fa-thumbs-up"></i> 12 hữu ích</span>
+                        </div>
+                    </div>
+
+                    <div class="forum-post">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="author-avatar">A</div>
+                                <div>
+                                    <strong>Bạn</strong>
+                                    <p style="color: #999; font-size: 12px; margin-top: 2px;">15/10/2025</p>
+                                </div>
+                            </div>
+                            <span class="appointment-status status-pending">Chờ trả lời</span>
+                        </div>
+                        <h4 style="margin-bottom: 10px; color: #333;">Chế độ ăn uống cho người bị thiếu máu?</h4>
+                        <div class="post-content">
+                            <p>Tôi vừa được chẩn đoán bị thiếu máu nhẹ. Bác sĩ có thể tư vấn chế độ ăn uống và thực phẩm nào nên bổ sung để cải thiện tình trạng này không ạ? Cảm ơn bác sĩ!</p>
+                        </div>
+                        <div class="post-stats">
+                            <span><i class="fas fa-comment"></i> 0 trả lời</span>
+                            <span><i class="fas fa-eye"></i> 23 lượt xem</span>
+                        </div>
+                    </div>
+
+                    <div class="forum-post">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="author-avatar" style="background: #dc3545;">H</div>
+                                <div>
+                                    <strong>Hoàng Minh</strong>
+                                    <p style="color: #999; font-size: 12px; margin-top: 2px;">18/10/2025</p>
+                                </div>
+                            </div>
+                            <span class="appointment-status status-confirmed">Đã trả lời</span>
+                        </div>
+                        <h4 style="margin-bottom: 10px; color: #333;">Làm thế nào để cải thiện giấc ngủ?</h4>
+                        <div class="post-content">
+                            <p>Gần đây tôi thường xuyên mất ngủ, khó đi vào giấc ngủ và hay tỉnh giấc giữa đêm. Điều này ảnh hưởng đến công việc và sức khỏe của tôi. Bác sĩ có thể cho lời khuyên không ạ?</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 3px solid #667eea;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <div class="author-avatar" style="background: #28a745;">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div>
+                                    <strong style="color: #28a745;">BS. Lê Thị D</strong>
+                                    <p style="color: #999; font-size: 12px; margin-top: 2px;">19/10/2025</p>
+                                </div>
+                            </div>
+                            <p style="color: #666; line-height: 1.6;">
+                                Để cải thiện giấc ngủ, bạn nên: 1) Đi ngủ và thức dậy đúng giờ mỗi ngày, 2) Tránh caffeine sau 2h chiều, 3) Tập thể dục nhưng không trước khi ngủ 3-4 tiếng, 4) Tạo môi trường phòng ngủ thoải mái (tối, mát, yên tĩnh), 5) Hạn chế sử dụng điện thoại, máy tính trước khi ngủ, 6) Thư giãn bằng thiền, đọc sách. Nếu tình trạng kéo dài, bạn nên đến khám để được tư vấn cụ thể hơn.
+                            </p>
+                        </div>
+                        <div class="post-stats">
+                            <span><i class="fas fa-comment"></i> 1 trả lời</span>
+                            <span><i class="fas fa-eye"></i> 67 lượt xem</span>
+                            <span><i class="fas fa-thumbs-up"></i> 28 hữu ích</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        // Star rating
+        let currentRating = 0;
+        function rate(stars) {
+            currentRating = stars;
+            const starElements = document.querySelectorAll('.star');
+            starElements.forEach((star, index) => {
+                if (index < stars) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Filter appointments
+        function filterAppointments(filter) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // In a real application, this would filter the appointments based on the selected filter
+            console.log('Filtering appointments by:', filter);
+        }
+
+        // Add hover effect for star rating
+        const stars = document.querySelectorAll('.star');
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseenter', () => {
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.style.color = '#ffc107';
+                    } else {
+                        s.style.color = '#ddd';
+                    }
+                });
+            });
+        });
+
+        const starRating = document.querySelector('.star-rating');
+        if (starRating) {
+            starRating.addEventListener('mouseleave', () => {
+                stars.forEach((star, index) => {
+                    if (index < currentRating) {
+                        star.style.color = '#ffc107';
+                    } else {
+                        star.style.color = '#ddd';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="login.css" />
+  <title>Đăng Nhập | Hệ Thống Đặt Lịch Hẹn Bác Sĩ</title>
+</head>
+
+<body>
+  <div class="container" id="container">
+    <div class="form-container sign-up">
+      <form>
+        <h1>Tạo Tài Khoản</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+          <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+
+        </div>
+        <span>Sử dụng email để đăng ký</span>
+        <input type="text" placeholder="Họ Tên" />
+        <input type="email" placeholder="Email" />
+        <input type="sdt" placeholder="SĐT" />
+        <input type="password" placeholder="Mật Khẩu" />
+        <button>Đăng Ký</button>
+      </form>
+    </div>
+    <div class="form-container sign-in">
+      <form>
+        <h1>Đăng Nhập</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+          <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+
+        </div>
+        <span>Sử dụng email và mật khẩu</span>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Mật Khẩu" />
+        <a href="#">Quên Mật Khẩu?</a>
+        <button>Đăng Nhập</button>
+      </form>
+    </div>
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h1>Chào Mừng Trở Lại!</h1>
+          <p>Nhập thông tin cá nhân để sử dụng tất cả tính năng của hệ thống đặt lịch hẹn bác sĩ</p>
+          <button class="hidden" id="login">Đăng Nhập</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <h1>Xin Chào!</h1>
+          <p>
+            Đăng ký với thông tin cá nhân để sử dụng tất cả tính năng của hệ thống đặt lịch hẹn bác sĩ
+          </p>
+          <button class="hidden" id="register">Đăng Ký</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+
+</html>
