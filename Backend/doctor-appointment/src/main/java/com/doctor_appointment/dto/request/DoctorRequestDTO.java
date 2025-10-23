@@ -7,13 +7,10 @@ import java.io.Serializable;
 
 
 @Getter
-@Setter
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class DoctorRequestDTO extends UserRequestDTO implements Serializable {
-
   private int experience;
-  private String specialName;
-  private String specialDesc;
+  private String doctorDesc;
+  private  Integer specialId;
 }

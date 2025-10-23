@@ -12,7 +12,7 @@ import java.util.Date;
 public abstract class AbstractEntity<T> {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private T id;
 
   @Column(name = "created_at")
   @CreationTimestamp

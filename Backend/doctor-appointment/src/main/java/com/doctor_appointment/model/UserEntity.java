@@ -1,7 +1,7 @@
 package com.doctor_appointment.model;
 
 import com.doctor_appointment.util.Gender;
-import com.doctor_appointment.util.UserStatus;
+import com.doctor_appointment.util.Status;
 import com.doctor_appointment.util.UserType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.util.*;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tbl_user")
@@ -42,7 +42,7 @@ public class UserEntity extends AbstractEntity<Long>{
 
   @Column(name = "status")
   @Enumerated(EnumType.STRING)
-  private UserStatus status;
+  private Status status;
 
   @Column(name = "type")
   @Enumerated(EnumType.STRING)
@@ -52,11 +52,20 @@ public class UserEntity extends AbstractEntity<Long>{
   private String avatarUrl;
 
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  private Set<UserHasRole> roles = new HashSet<>();
+  private Set<UserHasRole> userHasRoles = new HashSet<>();
 
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Set<UserHasGroup> groups = new HashSet<>();
 
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private List<TreatmentOrder> orders = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private List<Notification> notifications = new ArrayList<>();
+
   @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Doctor doctor;
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private List<VerificationToken> verificationTokens = new ArrayList<>();
 }

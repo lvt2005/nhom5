@@ -1,7 +1,7 @@
 package com.doctor_appointment.dto.response;
 
 import com.doctor_appointment.util.Gender;
-import com.doctor_appointment.util.UserStatus;
+import com.doctor_appointment.util.Status;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +20,5 @@ public class UserDetailResponse implements Serializable {
   private String address;
   private Date dateOfBirth;
   private Gender gender;
-  private UserStatus status;
+  private Status status;
 }
